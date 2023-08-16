@@ -16,23 +16,23 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Set the project name and language
 project(
-  myproject
+  cashbox
   VERSION 0.0.1
   DESCRIPTION ""
-  HOMEPAGE_URL "%%myurl%%"
+  HOMEPAGE_URL "https://github.com/v0d0m3r/cashbox"
   LANGUAGES CXX C)
 
 include(cmake/PreventInSourceBuilds.cmake)
 include(ProjectOptions.cmake)
 
 
-myproject_setup_options()
+cashbox_setup_options()
 
-myproject_global_options()
+cashbox_global_options()
 include(Dependencies.cmake)
-myproject_setup_dependencies()
+cashbox_setup_dependencies()
 
-myproject_local_options()
+cashbox_local_options()
 
 # don't know if this should be set globally from here or not...
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
@@ -46,13 +46,13 @@ string(
             8
             GIT_SHORT_SHA)
 
-target_compile_features(myproject_options INTERFACE cxx_std_${CMAKE_CXX_STANDARD})
+target_compile_features(cashbox_options INTERFACE cxx_std_${CMAKE_CXX_STANDARD})
 
-add_library(myproject::myproject_options ALIAS myproject_options)
-add_library(myproject::myproject_warnings ALIAS myproject_warnings)
+add_library(cashbox::cashbox_options ALIAS cashbox_options)
+add_library(cashbox::cashbox_warnings ALIAS cashbox_warnings)
 
-#add_library(myproject::myproject_options INTERFACE IMPORTED)
-#add_library(myproject::myproject_warnings INTERFACE IMPORTED)
+#add_library(cashbox::cashbox_options INTERFACE IMPORTED)
+#add_library(cashbox::cashbox_warnings INTERFACE IMPORTED)
 
 # configure files based on CMake configuration options
 add_subdirectory(configured_files)
@@ -74,9 +74,9 @@ if(BUILD_TESTING)
 endif()
 
 
-if(myproject_BUILD_FUZZ_TESTS)
+if(cashbox_BUILD_FUZZ_TESTS)
   message(AUTHOR_WARNING "Building Fuzz Tests, using fuzzing sanitizer https://www.llvm.org/docs/LibFuzzer.html")
-  if (NOT myproject_ENABLE_ADDRESS_SANITIZER AND NOT myproject_ENABLE_THREAD_SANITIZER)
+  if (NOT cashbox_ENABLE_ADDRESS_SANITIZER AND NOT cashbox_ENABLE_THREAD_SANITIZER)
     message(WARNING "You need asan or tsan enabled for meaningful fuzz testing")
   endif()
   add_subdirectory(fuzz_test)
@@ -102,11 +102,11 @@ include(cmake/PackageProject.cmake)
 
 # Add other targets that you want installed here, by default we just package the one executable
 # we know we want to ship
-myproject_package_project(
+cashbox_package_project(
   TARGETS
   intro
-  myproject_options
-  myproject_warnings
+  cashbox_options
+  cashbox_warnings
   # FIXME: this does not work! CK
   # PRIVATE_DEPENDENCIES_CONFIGURED project_options project_warnings
 )
