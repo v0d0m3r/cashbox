@@ -1,9 +1,11 @@
 add_subdirectory(sample_library)
 add_subdirectory(ftxui_sample)
 add_subdirectory(library)
+add_subdirectory(atm)
 
-add_executable(project_atm main.cpp)
-add_executable(project::project_atm ALIAS project_atm)
 
-set_target_properties(project_atm PROPERTIES OUTPUT_NAME atm)
-target_link_libraries(project_atm INTERFACE project_core)
+add_executable(cashbox_logger_demo main.cpp)
+add_executable(cashbox::cashbox_logger_demo ALIAS cashbox_logger_demo)
+
+set_target_properties(cashbox_logger_demo PROPERTIES OUTPUT_NAME logger_demo)
+target_link_libraries(cashbox_logger_demo INTERFACE cashbox_core)

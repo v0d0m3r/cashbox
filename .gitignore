@@ -1,11 +1,12 @@
 # Build directories and binary files
-build/
+build*
 out/
 cmake-build-*/
 conan-cache/
 
 # User spesific settings
 CMakeUserPresets.json
+CMakeLists.txt.user
 
 # IDE files
 .vs/
