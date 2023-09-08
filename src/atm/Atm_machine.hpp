@@ -6,9 +6,9 @@
 // Listing C.7 The ATM state machine
 class atm
 {
-  messaging::receiver incoming;
-  messaging::sender bank;
-  messaging::sender interface_hardware;
+  Messaging::Receiver incoming;
+  Messaging::Sender bank;
+  Messaging::Sender interface_hardware;
   void (atm::*state)();
   std::string account;
   unsigned withdrawal_amount;
@@ -165,13 +165,13 @@ class atm
   atm(atm const&)=delete;
   atm& operator=(atm const&)=delete;
 public:
-  atm(messaging::sender bank_,
-      messaging::sender interface_hardware_):
+  atm(Messaging::Sender bank_,
+      Messaging::Sender interface_hardware_):
     bank(bank_), interface_hardware(interface_hardware_)
   {}
   void done()
   {
-    get_sender().send(messaging::close_queue());
+    get_sender().send(Messaging::Close_queue());
   }
   void run()
   {
@@ -183,10 +183,10 @@ public:
         (this->*state)();
       }
     }
-    catch (messaging::close_queue const&) {
+    catch (Messaging::Close_queue const&) {
     }
   }
-  messaging::sender get_sender()
+  Messaging::Sender get_sender()
   {
     return incoming;
   }

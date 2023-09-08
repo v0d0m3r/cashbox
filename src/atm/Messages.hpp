@@ -13,10 +13,10 @@ struct withdraw
 {
   std::string account;
   unsigned amount;
-  mutable messaging::sender atm_queue;
+  mutable Messaging::Sender atm_queue;
   withdraw(std::string const& account_,
            unsigned amount_,
-           messaging::sender atm_queue_):
+           Messaging::Sender atm_queue_):
     account(account_), amount(amount_), atm_queue(atm_queue_)
   {}
 };
@@ -92,9 +92,9 @@ struct verify_pin
 {
   std::string account;
   std::string pin;
-  mutable messaging::sender atm_queue;
+  mutable Messaging::Sender atm_queue;
   verify_pin(std::string const& account_, std::string const& pin_,
-             messaging::sender atm_queue_):
+             Messaging::Sender atm_queue_):
       account(account_), pin(pin_), atm_queue(atm_queue_)
   {}
 };
@@ -126,8 +126,8 @@ struct display_withdrawal_options
 struct get_balance
 {
   std::string account;
-  mutable messaging::sender atm_queue;
-  get_balance(std::string const& account_, messaging::sender atm_queue_):
+  mutable Messaging::Sender atm_queue;
+  get_balance(std::string const& account_, Messaging::Sender atm_queue_):
     account(account_), atm_queue(atm_queue_)
   {}
 };

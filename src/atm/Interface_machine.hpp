@@ -7,11 +7,11 @@
 // Listing C.9 The user-interface state machine
 class interface_machine
 {
-  messaging::receiver incoming;
+  Messaging::Receiver incoming;
 public:
   void done()
   {
-    get_sender().send(messaging::close_queue());
+    get_sender().send(Messaging::Close_queue());
   }
   void run()
   {
@@ -111,11 +111,11 @@ public:
             );
       }
     }
-    catch (messaging::close_queue&)
+    catch (Messaging::Close_queue&)
     {
     }
   }
-  messaging::sender get_sender()
+  Messaging::Sender get_sender()
   {
     return incoming;
   }
