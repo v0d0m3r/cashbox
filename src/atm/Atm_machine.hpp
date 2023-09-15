@@ -169,7 +169,7 @@ public:
       Messaging::Sender interface_hardware_):
     bank(bank_), interface_hardware(interface_hardware_)
   {}
-  void done()
+  void done() const
   {
     get_sender().send(Messaging::Close_queue());
   }

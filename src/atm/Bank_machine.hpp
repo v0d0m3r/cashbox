@@ -13,7 +13,7 @@ public:
     balance(199)
   {}
 
-  void done()
+  void done() const
   {
     get_sender().send(Messaging::Close_queue());
   }

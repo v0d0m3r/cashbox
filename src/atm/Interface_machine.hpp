@@ -9,7 +9,7 @@ class interface_machine
 {
   mutable Messaging::Receiver incoming;
 public:
-  void done()
+  void done() const
   {
     get_sender().send(Messaging::Close_queue());
   }
