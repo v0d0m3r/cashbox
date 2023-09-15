@@ -7,7 +7,7 @@
 // Listing C.9 The user-interface state machine
 class interface_machine
 {
-  Messaging::Receiver incoming;
+  mutable Messaging::Receiver incoming;
 public:
   void done()
   {
@@ -115,7 +115,7 @@ public:
     {
     }
   }
-  Messaging::Sender get_sender()
+  Messaging::Sender get_sender() const noexcept
   {
     return incoming;
   }

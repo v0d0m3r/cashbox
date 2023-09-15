@@ -23,6 +23,7 @@ project(
   LANGUAGES CXX C)
 
 include(cmake/PreventInSourceBuilds.cmake)
+include(cmake/threads_setup.cmake)
 include(ProjectOptions.cmake)
 
 

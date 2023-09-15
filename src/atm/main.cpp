@@ -4,7 +4,7 @@
 
 // Listing C.10 The driving code
 int main()
-{
+try {
   bank_machine bank;
   interface_machine interface_hardware;
   atm machine(bank.get_sender(), interface_hardware.get_sender());
@@ -13,10 +13,12 @@ int main()
   std::thread atm_thread(&atm::run, &machine);
   Messaging::Sender atmqueue(machine.get_sender());
   bool quit_pressed=false;
+  constexpr auto how_much_to_withdraw{50};
+  const auto which_card_we_inserted{std::string{"acc1234"}};
   while (!quit_pressed)
   {
-    char c=getchar();
-    switch (c)
+    const auto inputed{static_cast<char>(getchar())};
+    switch (inputed)
     {
     case '0':
     case '1':
@@ -28,13 +30,13 @@ int main()
     case '7':
     case '8':
     case '9':
-      atmqueue.send(digit_pressed(c));
+      atmqueue.send(digit_pressed(inputed));
       break;
     case 'b':
       atmqueue.send(balance_pressed());
       break;
     case 'w':
-      atmqueue.send(withdraw_pressed(50));
+      atmqueue.send(withdraw_pressed(how_much_to_withdraw));
       break;
     case 'c':
       atmqueue.send(cancel_pressed());
@@ -44,7 +46,7 @@ int main()
       break;
     case 'i':
     case 'I':
-      atmqueue.send(card_inserted("acc1234"));
+      atmqueue.send(card_inserted(which_card_we_inserted));
       break;
     default:
       break;
@@ -57,4 +59,7 @@ int main()
   bank_thread.join();
   if_thread.join();
   return 0;
+}
+catch (const std::exception&) {
+
 }

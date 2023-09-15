@@ -6,7 +6,7 @@
 // Listing C.8 The bank state machine
 class bank_machine
 {
-  Messaging::Receiver incoming;
+  mutable Messaging::Receiver incoming;
   unsigned balance;
 public:
   bank_machine():
@@ -73,7 +73,7 @@ public:
     {
     }
   }
-  Messaging::Sender get_sender()
+  Messaging::Sender get_sender() const noexcept
   {
     return incoming;
   }

@@ -12,5 +12,5 @@ Based on atm example from ccia (C++ Concurrency in Action book). Intentions are 
 
  * [Dependency Setup](README_dependencies.md)
  * [Building Details](README_building.md)
- * [Troubleshooting](README_troubleshooting.md)
+# * [Troubleshooting](README_troubleshooting.md)
  * [Docker](README_docker.md)

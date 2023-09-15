@@ -165,7 +165,10 @@ public:
 class Logger_wrap::Tmp_log {
   friend class Logger_wrap;
 public:
-  ~Tmp_log()
+  ~Tmp_log() noexcept(false)  // to suppress warning C4297 (win32)
+                              // it warns that the destructor
+                              // is throwing exception, although
+                              // there is catchall block
   try {
     if (buf) {
       logger.write(buf->str());
@@ -293,7 +296,10 @@ public:
     return *(ofs_.get());
   }
 
-  ~Sync_ofstream_open_close()
+  ~Sync_ofstream_open_close() noexcept(false) // to suppress warning C4297 (win32)
+                                              // it warns that the destructor
+                                              // is throwing exception, although
+                                              // there is catchall block
   try {
     std::lock_guard guard{mutex_};
     if (ofs_->is_open())

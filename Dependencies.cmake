@@ -33,7 +33,7 @@ function(cashbox_setup_dependencies)
   endif()
 
   if(NOT TARGET ftxui::screen)
-    cpmaddpackage("gh:ArthurSonzogni/FTXUI#e23dbc7473654024852ede60e2121276c5aab660")
+    cpmaddpackage("gh:ArthurSonzogni/FTXUI#7cc68cfbd04dad889e0f70508a1f59f273b56c96")
   endif()
 
   if(NOT TARGET tools::tools)

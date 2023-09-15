@@ -10,10 +10,6 @@
 
 //------------------------------------------------------------------------------
 
-inline std::mutex iom;
-
-//------------------------------------------------------------------------------
-
 namespace Messaging {
 
 //------------------------------------------------------------------------------
@@ -142,7 +138,7 @@ class Dispatcher {
       dispatch(q_->wait_and_pop());
   }
 
-  bool dispatch(  // dispatch() checks for a close_queue message, and throws.
+  static bool dispatch(  // dispatch() checks for a close_queue message, and throws.
     const std::shared_ptr<Message_base>& msg)
   {
     if (dynamic_cast<Wrapped_message<Close_queue>*>(msg.get()))
@@ -181,17 +177,17 @@ public:
 //------------------------------------------------------------------------------
 
 class Sender {
-  Simple_queue* q_;         // sender is a wrapper around the queue pointer.
+  Simple_queue*const q_;  // sender is a wrapper around the queue pointer.
 public:
   Sender() : q_{nullptr} {}
 
   explicit Sender(Simple_queue*const q) : q_{q} {}
 
   template<class Message>
-  void send(const Message& msg)
+  void send(Message&& msg)
   {
     if (q_)
-      q_->push(msg);      // Sending pushes message on the queue
+      q_->push(std::forward<Message>(msg));      // Sending pushes message on the queue
   }
 };
 
@@ -200,8 +196,8 @@ public:
 class Receiver {
   Simple_queue q_;      // A receiver owns the queue.
 public:
-  operator Sender()     // Allow implicit conversion to a sender
-  {                     // that references the queue
+  operator Sender() noexcept // Allow implicit conversion to a sender
+  {                          // that references the queue
     return Sender(&q_);
   }
   Dispatcher wait()     // Waiting for a queue creates a dispatcher

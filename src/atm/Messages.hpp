@@ -8,6 +8,8 @@
 
 //------------------------------------------------------------------------------
 
+inline std::mutex iom;
+
 // Listing C.6 ATM messages
 struct withdraw
 {
@@ -83,7 +85,7 @@ struct cancel_pressed
 struct issue_money
 {
   unsigned amount;
-  issue_money(unsigned amount_):
+  explicit issue_money(unsigned amount_):
     amount(amount_)
   {}
 };

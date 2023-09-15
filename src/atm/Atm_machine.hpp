@@ -6,12 +6,12 @@
 // Listing C.7 The ATM state machine
 class atm
 {
-  Messaging::Receiver incoming;
+  mutable Messaging::Receiver incoming;
   Messaging::Sender bank;
   Messaging::Sender interface_hardware;
-  void (atm::*state)();
+  void (atm::*state)() = nullptr;
   std::string account;
-  unsigned withdrawal_amount;
+  unsigned withdrawal_amount{0};
   std::string pin;
   void process_withdrawal()
   {
@@ -186,7 +186,7 @@ public:
     catch (Messaging::Close_queue const&) {
     }
   }
-  Messaging::Sender get_sender()
+  Messaging::Sender get_sender() const noexcept
   {
     return incoming;
   }
