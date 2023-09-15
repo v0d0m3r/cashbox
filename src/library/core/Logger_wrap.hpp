@@ -22,7 +22,7 @@ inline std::string now_date_time()
   struct tm tstruct;
   char buf[24];
 #ifdef _WIN32
-  localtime_s(&now, &tstruct);
+  localtime_s(&tstruct, &now);
 #elif __gnu_linux__
   localtime_r(&now, &tstruct);
 #else

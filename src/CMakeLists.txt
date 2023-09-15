@@ -9,3 +9,4 @@ add_executable(cashbox::cashbox_logger_demo ALIAS cashbox_logger_demo)
 
 set_target_properties(cashbox_logger_demo PROPERTIES OUTPUT_NAME logger_demo)
 target_link_libraries(cashbox_logger_demo INTERFACE cashbox_core)
+target_link_libraries(cashbox_logger_demo ${CMAKE_THREAD_LIBS_INIT})
